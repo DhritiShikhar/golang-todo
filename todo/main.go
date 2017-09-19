@@ -119,10 +119,9 @@ func Update(c *gin.Context) {
 		db.Model(&todo).Update("title", c.PostForm("title"))
 	}
 
-	// TODO: add feature to update status
-	/*if strings.Trim(c.PostForm("comple")) != "" {
-		db.Model(&todo).Update("title", c.PostForm("title"))
-	}*/
+	if c.GetBool("done") {
+		db.Model(&todo).Update("done", c.GetBool("done"))
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":  http.StatusOK,
